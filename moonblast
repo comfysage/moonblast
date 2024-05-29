@@ -29,13 +29,13 @@ tmp_editor_directory() {
   echo "/tmp"
 }
 
-#Detect if $moonblast_EDITOR env exist
+#Detect if $MOONBLAST_EDITOR env exist
 env_editor_confirm() {
-  if [ -n "$moonblast_EDITOR" ]; then
-    echo "moonblast_EDITOR is set. Continuing..."
+  if [ -n "$MOONBLAST_EDITOR" ]; then
+    echo "MOONBLAST_EDITOR is set. Continuing..."
   else
-    echo "moonblast_EDITOR is not set. Defaulting to gimp"
-    moonblast_EDITOR=gimp
+    echo "MOONBLAST_EDITOR is not set. Defaulting to gimp"
+    MOONBLAST_EDITOR=gimp
   fi
 }
 
@@ -257,7 +257,7 @@ elif [ "$ACTION" = "edit" ]; then
     TITLE="Screenshot of $SUBJECT"
     MESSAGE="Open screenshot in image editor"
     notifyOk "$TITLE" "$MESSAGE" -i "$FILE_EDITOR"
-    $moonblast_EDITOR "$FILE_EDITOR"
+    $MOONBLAST_EDITOR "$FILE_EDITOR"
     echo "$FILE_EDITOR"
   else
     notifyError "Error taking screenshot"

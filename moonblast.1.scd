@@ -44,7 +44,7 @@ moonblast - a helper for screenshots within hyprland
 *edit*
 	Open screenshot in the image editor of your choice. The default is
 	gimp, but you can set a different one with the enviroment variable
-	$moonblast_EDITOR. Example: `export moonblast_EDITOR=gimp`.
+	$MOONBLAST_EDITOR. Example: `export MOONBLAST_EDITOR=gimp`.
 
 *check*
 	Verify whether the required tools are installed.
