@@ -25,8 +25,19 @@ getTargetDirectory() {
   echo "${XDG_SCREENSHOTS_DIR:-${XDG_PICTURES_DIR:-$HOME}}"
 }
 
+get_target_trunk() {
+  echo "$(date +"%Y-%m")"
+}
+get_target_name() {
+  echo "$(date +"%d%H%N%S")"
+}
+
 tmp_editor_directory() {
   echo "/tmp"
+}
+
+tmp_editor_name() {
+  echo "$(date -Ins)"
 }
 
 #Detect if $MOONBLAST_EDITOR env exist
@@ -89,8 +100,8 @@ done
 
 ACTION=${1:-usage}
 SUBJECT=${2:-screen}
-FILE=${3:-$(getTargetDirectory)/$(date -Ins).png}
-FILE_EDITOR=${3:-$(tmp_editor_directory)/$(date -Ins).png}
+FILE=${3:-$(getTargetDirectory)/$(get_target_trunk)/$(get_target_name).png}
+FILE_EDITOR=${3:-$(tmp_editor_directory)/$(tmp_editor_name).png}
 
 if [ "$ACTION" != "save" ] && [ "$ACTION" != "copy" ] && [ "$ACTION" != "edit" ] && [ "$ACTION" != "copysave" ] && [ "$ACTION" != "check" ]; then
   echo "Usage:"
@@ -165,6 +176,7 @@ check() {
 
 takeScreenshot() {
   FILE=$1
+  mkdir -p "$(dirname "$FILE")"
   GEOM=$2
   OUTPUT=$3
   if [ -n "$OUTPUT" ]; then
