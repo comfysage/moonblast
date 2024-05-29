@@ -32,10 +32,10 @@ tmp_editor_directory() {
 #Detect if $MOONBLAST_EDITOR env exist
 env_editor_confirm() {
   if [ -n "$MOONBLAST_EDITOR" ]; then
-    echo "MOONBLAST_EDITOR is set. Continuing..."
+    >&2 echo "MOONBLAST_EDITOR is set. Continuing..."
   else
-    echo "MOONBLAST_EDITOR is not set. Defaulting to gimp"
-    MOONBLAST_EDITOR=gimp
+    >&2 echo "MOONBLAST_EDITOR is not set. Defaulting to xdg-open"
+    MOONBLAST_EDITOR=xdg-open
   fi
 }
 
@@ -102,7 +102,7 @@ if [ "$ACTION" != "save" ] && [ "$ACTION" != "copy" ] && [ "$ACTION" != "edit" ]
   echo "  copy: Copy the screenshot data into the clipboard."
   echo "  save: Save the screenshot to a regular file or '-' to pipe to STDOUT."
   echo "  copysave: Combine the previous 2 options."
-  echo "  edit: Open screenshot in the image editor of your choice (default is gimp). See man page for info."
+  echo "  edit: Open screenshot in the image editor of your choice (default is xdg-open). See man page for info."
   echo "  check: Verify if required tools are installed and exit."
   echo "  usage: Show this message and exit."
   echo ""
