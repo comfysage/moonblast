@@ -276,25 +276,21 @@ case "$ACTION" in
   takeScreenshot - "$GEOM" "$OUTPUT" | wl-copy --type image/png || die "Clipboard error"
   notifyOk "$WHAT copied to buffer";;
  save)
-  if takeScreenshot "$FILE" "$GEOM" "$OUTPUT"; then
+  takeScreenshot "$FILE" "$GEOM" "$OUTPUT" && {
     TITLE="Screenshot of $SUBJECT"
     MESSAGE=$(basename "$FILE")
     notifyOk "$TITLE" "$MESSAGE" -i "$FILE"
     echo "$FILE"
-  else
-    notifyError "Error taking screenshot with grim"
-  fi;;
+  } || notifyError "Error taking screenshot with grim";;
  edit)
   env_editor_confirm
-  if takeScreenshot "$FILE_EDITOR" "$GEOM" "$OUTPUT"; then
+  takeScreenshot "$FILE_EDITOR" "$GEOM" "$OUTPUT" && {
     TITLE="Screenshot of $SUBJECT"
     MESSAGE="Open screenshot in image editor"
     notifyOk "$TITLE" "$MESSAGE" -i "$FILE_EDITOR"
     $MOONBLAST_EDITOR "$FILE_EDITOR"
     echo "$FILE_EDITOR"
-  else
-    notifyError "Error taking screenshot"
-  fi;;
+  } || notifyError "Error taking screenshot";;
  copysave)
     takeScreenshot - "$GEOM" "$OUTPUT" | tee "$FILE" | wl-copy --type image/png || die "Clipboard error"
     notifyOk "$WHAT copied to buffer and saved to $FILE" -i "$FILE"
