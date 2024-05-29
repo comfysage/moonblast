@@ -224,8 +224,8 @@ if [ "$ACTION" = "check" ]; then
   check jq
   check notify-send
   exit
-else
- case "$SUBJECT" in
+fi
+case "$SUBJECT" in
  active)
   wait
   FOCUSED=$(hyprctl activewindow -j)
@@ -269,8 +269,7 @@ else
   wait;;
  window) die "you probably meant to invoke 'active'";;
  *) die "Unknown subject to take a screen shot from" "$SUBJECT";;
- esac
-fi
+esac
 
 case "$ACTION" in
  copy)
