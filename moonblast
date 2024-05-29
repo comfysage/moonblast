@@ -103,27 +103,38 @@ SUBJECT=${2:-screen}
 FILE=${3:-$(getTargetDirectory)/$(get_target_trunk)/$(get_target_name).png}
 FILE_EDITOR=${3:-$(tmp_editor_directory)/$(tmp_editor_name).png}
 
-if [ "$ACTION" != "save" ] && [ "$ACTION" != "copy" ] && [ "$ACTION" != "edit" ] && [ "$ACTION" != "copysave" ] && [ "$ACTION" != "check" ]; then
-  echo "Usage:"
-  echo "  moonblast [--notify] [--cursor] [--freeze] [--wait N] [--scale <scale>] (copy|save|copysave|edit) [active|screen|output|area] [FILE|-]"
-  echo "  moonblast check"
-  echo "  moonblast usage"
-  echo ""
-  echo "Commands:"
-  echo "  copy: Copy the screenshot data into the clipboard."
-  echo "  save: Save the screenshot to a regular file or '-' to pipe to STDOUT."
-  echo "  copysave: Combine the previous 2 options."
-  echo "  edit: Open screenshot in the image editor of your choice (default is xdg-open). See man page for info."
-  echo "  check: Verify if required tools are installed and exit."
-  echo "  usage: Show this message and exit."
-  echo ""
-  echo "Targets:"
-  echo "  active: Currently active window."
-  echo "  screen: All visible outputs."
-  echo "  output: Currently active output."
-  echo "  area: Manually select a region or window."
-  exit
-fi
+print_usage() {
+>&2 cat <<"EOF"
+  Usage:
+    moonblast [--notify] [--cursor] [--freeze] [--wait N] [--scale <scale>] (copy|save|copysave|edit) [active|screen|output|area] [FILE|-]
+    moonblast check
+    moonblast usage
+
+  Commands:
+    copy: Copy the screenshot data into the clipboard.
+    save: Save the screenshot to a regular file or '-' to pipe to STDOUT.
+    copysave: Combine the previous 2 options.
+    edit: Open screenshot in the image editor of your choice (default is xdg-open). See man page for info.
+    check: Verify if required tools are installed and exit.
+    usage: Show this message and exit.
+
+  Targets:
+    active: Currently active window.
+    screen: All visible outputs.
+    output: Currently active output.
+    area: Manually select a region or window.
+EOF
+exit 1
+}
+
+case "$ACTION" in
+  copy) >&2 echo "copy the screenshot data into the clipboard.";;
+  save) >&2 echo "save the screenshot to a regular file or '-' to pipe to STDOUT.";;
+  copysave) >&2 echo "combine the copy and save options.";;
+  edit) >&2 echo "open screenshot in the image editor of your choice (default is xdg-open). See man page for info.";;
+  check) >&2 echo "verify if required tools are installed and exit.";;
+  *) print_usage ;;
+esac
 
 notify() {
   notify-send -t 3000 -a moonblast "$@"
