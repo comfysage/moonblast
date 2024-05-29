@@ -225,22 +225,24 @@ if [ "$ACTION" = "check" ]; then
   check jq
   check notify-send
   exit
-elif [ "$SUBJECT" = "active" ]; then
+else
+ case "$SUBJECT" in
+ active)
   wait
   FOCUSED=$(hyprctl activewindow -j)
   GEOM=$(echo "$FOCUSED" | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
   APP_ID=$(echo "$FOCUSED" | jq -r '.class')
-  WHAT="$APP_ID window"
-elif [ "$SUBJECT" = "screen" ]; then
+  WHAT="$APP_ID window";;
+ screen)
   wait
   GEOM=""
-  WHAT="Screen"
-elif [ "$SUBJECT" = "output" ]; then
+  WHAT="Screen";;
+ output)
   wait
   GEOM=""
   OUTPUT=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true)' | jq -r '.name')
-  WHAT="$OUTPUT"
-elif [ "$SUBJECT" = "area" ]; then
+  WHAT="$OUTPUT";;
+ area)
   if [ "$FREEZE" = "yes" ] && [ "$(command -v "hyprpicker")" ] >/dev/null 2>&1; then
     hyprpicker -r -z &
     sleep 0.2
@@ -265,11 +267,10 @@ elif [ "$SUBJECT" = "area" ]; then
     exit 1
   fi
   WHAT="Area"
-  wait
-elif [ "$SUBJECT" = "window" ]; then
-  die "Subject 'window' is now included in 'area'"
-else
-  die "Unknown subject to take a screen shot from" "$SUBJECT"
+  wait;;
+ window) die "you probably meant to invoke 'active'";;
+ *) die "Unknown subject to take a screen shot from" "$SUBJECT";;
+ esac
 fi
 
 if [ "$ACTION" = "copy" ]; then
