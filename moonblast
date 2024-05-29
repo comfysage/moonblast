@@ -12,7 +12,7 @@
 ##
 ## See `man 1 moonblast` or `moonblast usage` for further details.
 
-## Author: Misterio (https://github.com/misterio77)
+## Authors: Misterio (https://github.com/misterio77) comfysage (https://github.com/comfysage)
 
 ## This tool is based on grimshot, with swaymsg commands replaced by their
 ## hyprctl equivalents.
