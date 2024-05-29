@@ -1,0 +1,9 @@
+[main]
+branch = "main"
+
+[nightly]
+branch = "nightly"
+enable = false
+
+[feature]
+prefix = "feature"
