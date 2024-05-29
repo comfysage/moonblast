@@ -147,12 +147,12 @@ notifyOk() {
 }
 
 notifyError() {
+  MESSAGE=${1:-"Error taking screenshot with grim"}
   if [ $NOTIFY = "yes" ]; then
     TITLE=${2:-"Screenshot"}
-    MESSAGE=${1:-"Error taking screenshot with grim"}
     notify -u critical "$TITLE" "$MESSAGE"
   else
-    echo "$1"
+    >&2 printf "${PREFIX:-"  "}%s\n" "$MESSAGE"
   fi
 }
 
@@ -170,8 +170,7 @@ killHyprpicker() {
 
 die() {
   killHyprpicker
-  MSG=${1:-Bye}
-  notifyError "Error: $MSG"
+  notifyError "Error: $@"
   exit 2
 }
 
