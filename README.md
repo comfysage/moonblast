@@ -6,6 +6,7 @@ An adapted version of [grimblast](https://github.com/hyprwm/contrib/blob/33b3835
 
 - uses `xdg-open` by default as image editor (instead of gimp).
 - saves screenshots using directories (with format `%Y-%M`).
+- squashed some bugs.
 
 ## installation
 
