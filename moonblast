@@ -292,6 +292,7 @@ case "$ACTION" in
     echo "$FILE_EDITOR"
   } || notifyError "Error taking screenshot";;
  copysave)
+    mkdir -p "$(dirname "$FILE")"
     takeScreenshot - "$GEOM" "$OUTPUT" | tee "$FILE" | wl-copy --type image/png || die "Clipboard error"
     notifyOk "$WHAT copied to buffer and saved to $FILE" -i "$FILE"
     echo "$FILE";;
