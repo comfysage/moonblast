@@ -137,7 +137,7 @@ case "$ACTION" in
 esac
 
 notify() {
-  notify-send -u low -a moonblast "$@"
+  notify-send -e -u low -a moonblast "$@"
 }
 
 notifyOk() {
