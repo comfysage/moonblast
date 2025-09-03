@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "A helper for screenshots within Hyprland, based on grimshot";
+    description = "helper for screenshots within Hyprland, based on grimshot";
     license = licenses.mit;
     platforms = platforms.unix;
     mainProgram = "moonblast";
